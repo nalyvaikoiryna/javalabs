@@ -14,7 +14,7 @@ class GildedRose {
     }
 
     public void updateItem(Item item) {
-        item.decrementSellIn(); // Зменшуємо термін придатності
+        item.decrementSellIn();
 
         if (isNormalItem(item)) {
             updateNormalItem(item);
@@ -24,7 +24,7 @@ class GildedRose {
             updateBackstagePass(item);
         }
 
-        handleExpiredItem(item); // Обробка прострочених товарів
+        handleExpiredItem(item);
     }
 
     private boolean isNormalItem(Item item) {
@@ -41,7 +41,7 @@ class GildedRose {
 
     private void updateNormalItem(Item item) {
         if (item.quality > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            item.quality--; 
+            item.quality--;
         }
     }
 
