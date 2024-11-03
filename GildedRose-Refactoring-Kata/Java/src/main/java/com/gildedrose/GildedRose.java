@@ -14,7 +14,7 @@ class GildedRose {
     }
 
     public void updateItem(Item item) {
-        item.decrementSellIn();
+        item.decrementSellIn(); // Зменшуємо термін придатності
 
         if (isNormalItem(item)) {
             updateNormalItem(item);
@@ -24,7 +24,7 @@ class GildedRose {
             updateBackstagePass(item);
         }
 
-        handleExpiredItem(item);
+        handleExpiredItem(item); // Обробка прострочених товарів
     }
 
     private boolean isNormalItem(Item item) {
@@ -41,7 +41,7 @@ class GildedRose {
 
     private void updateNormalItem(Item item) {
         if (item.quality > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            item.quality--;
+            item.quality--; 
         }
     }
 
@@ -52,27 +52,25 @@ class GildedRose {
     }
 
     private void updateBackstagePass(Item item) {
+        incrementQuality(item);
+        if (item.sellIn < 11) {
+            incrementQuality(item);
+        }
+        if (item.sellIn < 6) {
+            incrementQuality(item);
+        }
+    }
+
+    private void incrementQuality(Item item) {
         if (item.quality < 50) {
             item.quality++;
-            if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                    item.quality++;
-                }
-            }
-            if (item.sellIn < 6) {
-                if (item.quality < 50) {
-                    item.quality++;
-                }
-            }
         }
     }
 
     private void handleExpiredItem(Item item) {
         if (item.sellIn < 0) {
             if (isAgedBrie(item)) {
-                if (item.quality < 50) {
-                    item.quality++; 
-                }
+                incrementQuality(item);
             } else if (isBackstagePass(item)) {
                 item.quality = 0;
             } else {
