@@ -15,32 +15,27 @@ class GildedRose {
 
     public void updateItem(Item item) {
         item.decrementSellIn();
+        updateQuality(item);
+        handleExpiredItem(item);
+    }
 
+    private void updateQuality(Item item) {
         if (item.isAgedBrie()) {
-            updateAgedBrie(item);
-            handleExpiredItem(item);
+            item.incrementQuality();
             return;
         }
 
         if (item.isBackstagePass()) {
             updateBackstagePass(item);
-            handleExpiredItem(item);
             return;
         }
 
         updateNormalItem(item);
-        handleExpiredItem(item);
     }
 
     private void updateNormalItem(Item item) {
         if (item.getQuality() > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
             item.decrementQuality();
-        }
-    }
-
-    private void updateAgedBrie(Item item) {
-        if (item.getQuality() < 50) {
-            item.incrementQuality();
         }
     }
 
@@ -56,17 +51,23 @@ class GildedRose {
 
     private void handleExpiredItem(Item item) {
         if (item.sellIn < 0) {
-            if (item.isAgedBrie()) {
-                item.incrementQuality();
-                return;
-            }
-            if (item.isBackstagePass()) {
-                item.setQuality(0);
-                return;
-            }
-            if (item.getQuality() > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                item.decrementQuality();
-            }
+            handleExpiredQuality(item);
+        }
+    }
+
+    private void handleExpiredQuality(Item item) {
+        if (item.isAgedBrie()) {
+            item.incrementQuality();
+            return;
+        }
+
+        if (item.isBackstagePass()) {
+            item.setQuality(0);
+            return;
+        }
+
+        if (item.getQuality() > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            item.decrementQuality();
         }
     }
 }
