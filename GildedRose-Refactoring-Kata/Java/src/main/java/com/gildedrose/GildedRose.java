@@ -14,7 +14,7 @@ class GildedRose {
     }
 
     public void updateItem(Item item) {
-        item.decrementSellIn(); 
+        item.decrementSellIn();
 
         if (isNormalItem(item)) {
             updateNormalItem(item);
@@ -69,17 +69,15 @@ class GildedRose {
 
     private void handleExpiredItem(Item item) {
         if (item.sellIn < 0) {
-            if (!isAgedBrie(item)) {
-                if (!isBackstagePass(item)) {
-                    if (item.quality > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                        item.quality--;
-                    }
-                } else {
-                    item.quality = 0;
-                }
-            } else {
+            if (isAgedBrie(item)) {
                 if (item.quality < 50) {
-                    item.quality++;
+                    item.quality++; 
+                }
+            } else if (isBackstagePass(item)) {
+                item.quality = 0;
+            } else {
+                if (item.quality > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                    item.quality--;
                 }
             }
         }
