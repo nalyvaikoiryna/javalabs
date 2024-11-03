@@ -31,8 +31,16 @@ public class Item {
         return quality;
     }
 
+    public boolean isAgedBrie() {
+        return name.equals("Aged Brie");
+    }
+
+    public boolean isBackstagePass() {
+        return name.equals("Backstage passes to a TAFKAL80ETC concert");
+    }
+
     @Override
-   public String toString() {
+    public String toString() {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 }

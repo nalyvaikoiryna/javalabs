@@ -15,26 +15,32 @@ class GildedRose {
 
     public void updateItem(Item item) {
         item.decrementSellIn();
-        if (item.sellIn < 0) {
-            handleExpiredItem(item);
-        } else {
-            handleNormalItem(item);
-        }
-    }
 
-    private void handleNormalItem(Item item) {
-        if (isAgedBrie(item)) {
-            item.incrementQuality();
-        } else if (isBackstagePass(item)) {
-            updateBackstagePass(item);
-        } else {
-            updateNormalItem(item);
+        if (item.isAgedBrie()) {
+            updateAgedBrie(item);
+            handleExpiredItem(item);
+            return;
         }
+
+        if (item.isBackstagePass()) {
+            updateBackstagePass(item);
+            handleExpiredItem(item);
+            return;
+        }
+
+        updateNormalItem(item);
+        handleExpiredItem(item);
     }
 
     private void updateNormalItem(Item item) {
         if (item.getQuality() > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
             item.decrementQuality();
+        }
+    }
+
+    private void updateAgedBrie(Item item) {
+        if (item.getQuality() < 50) {
+            item.incrementQuality();
         }
     }
 
@@ -49,22 +55,18 @@ class GildedRose {
     }
 
     private void handleExpiredItem(Item item) {
-        if (isAgedBrie(item)) {
-            item.incrementQuality();
-        } else if (isBackstagePass(item)) {
-            item.setQuality(0);
-        } else {
+        if (item.sellIn < 0) {
+            if (item.isAgedBrie()) {
+                item.incrementQuality();
+                return;
+            }
+            if (item.isBackstagePass()) {
+                item.setQuality(0);
+                return;
+            }
             if (item.getQuality() > 0 && !item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 item.decrementQuality();
             }
         }
-    }
-
-    private boolean isAgedBrie(Item item) {
-        return item.name.equals("Aged Brie");
-    }
-
-    private boolean isBackstagePass(Item item) {
-        return item.name.equals("Backstage passes to a TAFKAL80ETC concert");
     }
 }
