@@ -7,5 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="cucumber-core-7.20.1-javadoc" level="project" />
+    <orderEntry type="library" name="cucumber-java-7.20.1-javadoc" level="project" />
+    <orderEntry type="library" name="cucumber-junit-7.20.1-javadoc" level="project" />
+    <orderEntry type="library" name="cucumber-tag-expressions-2.0.3" level="project" />
   </component>
 </module>

@@ -1,3 +1,10 @@
+package test.java.steps;
+
+import main.java.core.ProductionFacade;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+
 public class LineManagementSteps {
 
     private ProductionFacade facade;
