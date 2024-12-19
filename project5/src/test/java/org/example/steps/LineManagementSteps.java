@@ -1,6 +1,9 @@
 package org.example.steps;
-
-public class LineMahagementSteps {
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import org.example.ProductionFacade;
+public class LineManagementSteps {
     private ProductionFacade facade;
 
     @Given("виробнича лінія зупинена")
@@ -9,7 +12,7 @@ public class LineMahagementSteps {
         facade.stopLine();
     }
 
-    @When("адміністратор надсилає команду {string}")
+    @When("адміністратор надсилає команду *string}")
     public void administratorSendsCommand(String command) {
         if ("Запустити лінію".equals(command)) {
             facade.startLine();
