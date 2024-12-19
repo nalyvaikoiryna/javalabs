@@ -1,0 +1,36 @@
+<dependencies>
+    <!-- Cucumber Core -->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <version>7.20.1</version>
+    </dependency>
+
+    <!-- Cucumber JUnit (для запуску тестів через JUnit) -->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>7.20.1</version>
+    </dependency>
+
+    <!-- Cucumber JUnit Platform Engine -->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit-platform-engine</artifactId>
+        <version>7.20.1</version>
+    </dependency>
+
+    <!-- Cucumber Tag Expressions -->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-tag-expressions</artifactId>
+        <version>7.20.1</version>
+    </dependency>
+
+    <!-- SLF4J (для логів, опціонально) -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>2.0.7</version>
+    </dependency>
+</dependencies>
