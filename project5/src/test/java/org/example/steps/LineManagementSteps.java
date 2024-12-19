@@ -7,6 +7,7 @@ import org.example.ProductionFacade;
 
 public class LineManagementSteps {
     private ProductionFacade facade;
+    private boolean sensorFaulty = false;
 
     @Given("виробнича лінія зупинена")
     public void productionLineStopped() {
@@ -20,14 +21,33 @@ public class LineManagementSteps {
         facade.startLine();
     }
 
+    @Given("датчик несправний")
+    public void sensorIsFaulty() {
+        sensorFaulty = true;
+    }
+
     @When("адміністратор надсилає команду {string}")
     public void administratorSendsCommand(String command) {
+        if (sensorFaulty && "Запустити лінію".equals(command)) {
+            throw new IllegalStateException("Датчик не працює!");
+        }
+
         if ("Запустити лінію".equals(command)) {
             facade.startLine();
         } else if ("Зупинити лінію".equals(command)) {
             facade.stopLine();
         } else {
             throw new IllegalArgumentException("Невідома команда: " + command);
+        }
+    }
+
+    @Then("система видає помилку {string}")
+    public void systemThrowsError(String errorMessage) {
+        try {
+            facade.startLine();
+        } catch (IllegalStateException e) {
+            assert e.getMessage().equals(errorMessage) : "Очікувана помилка не співпадає!";
+            System.out.println("Помилка: " + e.getMessage());
         }
     }
 
