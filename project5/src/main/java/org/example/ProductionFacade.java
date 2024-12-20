@@ -28,4 +28,8 @@ public class ProductionFacade {
     public boolean isOperationComplete() {
         return sensor.isOperationComplete();
     }
+    public void setSensorFaulty(boolean faulty) {
+        sensor.setOperational(!faulty); // true = справний, false = несправний
+    }
+
 }
